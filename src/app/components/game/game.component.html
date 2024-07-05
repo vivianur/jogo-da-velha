@@ -1,0 +1,65 @@
+<div class="game-container">
+  <div class="board">
+    <div *ngFor="let row of board; let rowIndex = index" class="row">
+      <div
+        *ngFor="let cell of row; let colIndex = index"
+        class="cell"
+        (click)="makeMove(rowIndex, colIndex)"
+      >
+        <span
+          class="symbol"
+          [ngClass]="{ 'player-x': cell === 'X', 'player-o': cell === 'O' }"
+          >{{ cell }}</span
+        >
+      </div>
+    </div>
+  </div>
+
+  <div class="info">
+    <div class="flex justify-between items-center">
+      @if(!winner){
+        <span>
+          Current Player:
+          <span [appHighlightPlayer]="currentPlayer">{{
+            currentPlayer | playerName
+          }}</span>
+        </span>
+      } @else {
+        <span>
+          Winner:
+          <span [appHighlightPlayer]="winner">{{ winner | playerName }}</span>
+        </span>
+
+      }
+      <span (click)="ChangeMode()"><i class='bx  text-2xl transition-all  hover:scale-110' [ngClass]="{'bxs-user':!playWithBot, 'bx-desktop':playWithBot}"></i></span>
+    </div>
+    <div class="playerScore my-4">
+      <div>
+        <span>Player ( X )</span>
+        <span>{{ gameService.gameInfo().playerXWin }}</span>
+      </div>
+      <div>
+        <span>Draw</span>
+        <span>{{ gameService.gameInfo().draw }}</span>
+      </div>
+      <div>
+        <span>{{ playWithBot?'Computer ( O )':'Player ( O )'}}</span>
+        <span>{{ gameService.gameInfo().playerOWin }}</span>
+      </div>
+    </div>
+  <div class="flex  justify-around">
+    <button
+    class="px-4 py-2 m-2 bg-white text-black rounded-md font-bold min-w-32 transition ease-in-out  hover:scale-105"
+    (click)="newGame(); reset()"
+  >
+    Reset
+  </button>
+  <button
+    class="px-4 py-2 m-2 bg-white text-black rounded-md font-bold min-w-32 transition ease-in-out delay-75   hover:scale-105  duration-200 "
+    (click)=" newGame();"
+  >
+    Clear
+  </button>
+  </div>
+  </div>
+</div>

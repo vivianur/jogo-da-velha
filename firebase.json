@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "dist/tic-tac-toe-game/browser/",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
